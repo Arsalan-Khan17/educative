@@ -22,7 +22,7 @@ Route::post('/do_login', 'App\Http\Controllers\UserController@login')->name('do_
 Route::middleware(\App\Http\Middleware\EnsureLogin::class)->group(function () {
     Route::get('/', function () {
         return view('index');
-    });
+    })->name('dashboard');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/students', [App\Http\Controllers\StudentController::class, 'index'])->name('students');
     Route::get('/user_form', [App\Http\Controllers\UserController::class, 'form'])->name('user_form');
@@ -34,5 +34,9 @@ Route::middleware(\App\Http\Middleware\EnsureLogin::class)->group(function () {
     Route::get('/sessions', [App\Http\Controllers\CommonController::class, 'index'])->name('sessions');
     Route::post('/save', [App\Http\Controllers\CommonController::class, 'save'])->name('save');
     Route::get('/group_detail/{id}', [App\Http\Controllers\CommonController::class, 'group_detail'])->name('group_detail');
+    Route::get('/classes', [App\Http\Controllers\ClassController::class, 'list'])->name('classes');
+    Route::get('/lectures/{class_id?}', [App\Http\Controllers\LectureController::class, 'index'])->name('lectures');
+    Route::post('/save_class', [App\Http\Controllers\ClassController::class, 'save_class'])->name('save_class');
+    Route::post('/save_lecture', [App\Http\Controllers\LectureController::class, 'save_lecture'])->name('save_lecture');
 
 });
